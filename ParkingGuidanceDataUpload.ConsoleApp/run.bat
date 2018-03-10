@@ -1,0 +1,1 @@
+dotnet ParkingGuidanceDataUpload.ConsoleApp.dll
