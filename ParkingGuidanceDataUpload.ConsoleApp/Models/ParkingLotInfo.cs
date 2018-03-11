@@ -7,16 +7,16 @@ namespace ParkingGuidanceDataUpload.ConsoleApp.Models
 {
     public class ParkingLotInfo
     {
-        [JsonProperty(PropertyName = "parkId")]
+        [JsonProperty("parkId")]
         public long ParkId { get; set; }
 
-        [JsonProperty(PropertyName = "total")]
+        [JsonProperty("total")]
         public string CountCw { get; set; }
 
         [JsonIgnore]
         public int StopCw { get; set; }
 
-        [JsonProperty(PropertyName = "Surplus")]
+        [JsonProperty("Surplus")]
         public int PrepCw { get; set; }
     }
 }
