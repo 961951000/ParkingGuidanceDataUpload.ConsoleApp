@@ -36,7 +36,7 @@ namespace ParkingGuidanceDataUpload.ConsoleApp
                     try
                     {
                         var parkingLotInfo = await _db.QuerySingleOrDefaultAsync<ParkingLotInfo>("SELECT CONVERT (VARCHAR(20), 3401030036) as [ParkId],[CountCw],[StopCw],[PrepCw] FROM [dbo].[Tc_ParkingLotInfo] WHERE ParkingLotName = 'B2'");
-                        Console.WriteLine($"实参: {JsonConvert.SerializeObject(parkingLotInfo)}{Environment.NewLine}");
+                        Console.WriteLine($"实参: {JsonConvert.SerializeObject(parkingLotInfo)}");
 
                         const string url = "http://park.hfcsbc.cn:8080/parkScreenPMS/ReceiveParkNum.action?parkId=3401030036&total=1192&Surplus=800";
                         var client = new HttpClient();
