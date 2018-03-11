@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
-    <AssemblyName>停车场诱导数据接入服务</AssemblyName>
+    <AssemblyName>ParkingGuidanceDataUpload</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
