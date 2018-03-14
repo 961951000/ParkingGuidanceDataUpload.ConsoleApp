@@ -11,7 +11,7 @@ namespace ParkingGuidanceDataUpload.ConsoleApp.Models
         public long ParkId { get; set; }
 
         [JsonProperty(PropertyName = "total")]
-        public string CountCw { get; set; }
+        public int CountCw { get; set; }
 
         [JsonIgnore]
         public int StopCw { get; set; }
