@@ -31,30 +31,27 @@ namespace ParkingGuidanceDataUpload.ConsoleApp
 
             while (true)
             {
-                while (true)
+                try
                 {
-                    try
-                    {
-                        var parkingLotInfo = await _db.QuerySingleOrDefaultAsync<ParkingLotInfo>("SELECT CONVERT (VARCHAR(20), 3401110130) as [ParkId],[CountCw],[StopCw],[PrepCw] FROM [dbo].[Tc_ParkingLotInfo] WHERE ParkingLotName = 'B2'");
-                        var url = $"http://park.hfcsbc.cn:8080/parkScreenPMS/ReceiveParkNum.action?parkId={parkingLotInfo?.ParkId}&total={parkingLotInfo?.CountCw}&Surplus={parkingLotInfo?.PrepCw}";
+                    var parkingLotInfo = await _db.QuerySingleOrDefaultAsync<ParkingLotInfo>("SELECT CONVERT (VARCHAR(20), 3401110130) as [ParkId],[CountCw],[StopCw],[PrepCw] FROM [dbo].[Tc_ParkingLotInfo] WHERE ParkingLotName = 'B2'");
+                    var url = $"http://park.hfcsbc.cn:8080/parkScreenPMS/ReceiveParkNum.action?parkId={parkingLotInfo?.ParkId}&total={parkingLotInfo?.CountCw}&Surplus={parkingLotInfo?.PrepCw}";
 
-                        var client = new HttpClient();
-                        var result = await client.GetStringAsync(url);
+                    var client = new HttpClient();
+                    var result = await client.GetStringAsync(url);
 
-                        Console.WriteLine($"入参: {JsonConvert.SerializeObject(parkingLotInfo)}{Environment.NewLine}出参: {result}{Environment.NewLine}操作时间: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-                    }
-                    catch (Exception ex)
+                    Console.WriteLine($"入参: {JsonConvert.SerializeObject(parkingLotInfo)}{Environment.NewLine}出参: {result}{Environment.NewLine}操作时间: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                finally
+                {
+                    if (token.WaitHandle.WaitOne(millisecondsFrequency))
                     {
-                        Console.WriteLine(ex);
+                        throw new OperationCanceledException(token);
                     }
-                    finally
-                    {
-                        if (token.WaitHandle.WaitOne(millisecondsFrequency))
-                        {
-                            throw new OperationCanceledException(token);
-                        }
-                        Console.WriteLine();
-                    }
+                    Console.WriteLine();
                 }
             }
         }
